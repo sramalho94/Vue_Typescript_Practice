@@ -10,7 +10,7 @@ import { ref } from 'vue'
 interface Restaurant {
   name?: string
   address?: string
-  status?: string
+  status?: RestaurantStatus
   dishes?: Dish[]
 }
 
@@ -22,11 +22,20 @@ type RestaurantStatus =
 
 const restaurantList = ref<Restaurant[]>([])
 const newRestaurant = ref<Restaurant>({})
+
+// Extract value from
+const statusList = [
+  'Want to Try',
+  'Recommended',
+  'Do Not Recommend',
+  'Must Try'
+]
+
 const addRestaurant = () => {
   restaurantList.value.push({
     name: newRestaurant.value.name,
     address: '',
-    status: '',
+    status: 'Want to Try',
     dishes: []
   })
 }
@@ -47,7 +56,15 @@ const addRestaurant = () => {
       </div>
       <div>
         <label for="restaurant-status">Restaurant Status</label>
-        <input id="restaurant-status" v-model="newRestaurant.status" />
+        <select
+          name="restaurant-status"
+          id="restaurant-status"
+          v-model="newRestaurant.status"
+        >
+          <option v-for="status in statusList" :value="status" :key="status">
+            {{ status }}
+          </option>
+        </select>
       </div>
       <button type="submit">Add Restaurant</button>
     </form>
