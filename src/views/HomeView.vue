@@ -34,8 +34,8 @@ const statusList = [
 const addRestaurant = () => {
   restaurantList.value.push({
     name: newRestaurant.value.name,
-    address: '',
-    status: 'Want to Try',
+    address: newRestaurant.value.address,
+    status: newRestaurant.value.status,
     dishes: []
   })
 }
@@ -70,7 +70,7 @@ const addRestaurant = () => {
     </form>
     <ul>
       <li v-for="restaurant in restaurantList" :key="restaurant.name">
-        {{ restaurant }}
+        {{ restaurant.name }} - {{ restaurant.status }}
       </li>
     </ul>
   </main>
